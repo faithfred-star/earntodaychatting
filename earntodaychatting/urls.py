@@ -1,6 +1,7 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', views.register_view, name='register'),
+    path('admin/', admin.site.join), # System admin panel
+    path('', include('accounts.urls')), # This forwards the root website traffic straight to your accounts app!
 ]
