@@ -3,6 +3,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Security settings
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-change-this-in-production')
+
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['earntodaychatting.onrender.com', 'localhost', '127.0.0.1']
 
@@ -19,7 +22,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Place right under security
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Essential for Render static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -27,6 +30,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# --- FIXED: Added the missing URL configuration routing ---
+ROOT_URLCONF = 'earntodaychatting.urls'
 
 TEMPLATES = [
     {
@@ -44,7 +50,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'earntodaychatting.wsgi.wsgi' # Assigned variable for serverless environments
+# --- FIXED: Corrected path for standard Gunicorn/WSGI setups ---
+WSGI_APPLICATION = 'earntodaychatting.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -53,6 +60,7 @@ DATABASES = {
     }
 }
 
+# Static files configurations
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
