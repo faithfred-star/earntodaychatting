@@ -1,13 +1,10 @@
-from django.urls import path
-# --- FIXED: Added the missing views import ---
+from django.contrib import admin
 from django.urls import path, include
+
 urlpatterns = [
-    # Main landing page
-    path('', views.home, name='home'),
+    # Admin Panel
+    path('admin/', admin.site.urls),
     
-    # Matches your existing setup exactly (using a hyphen)
-    path('verify-payment/', views.verify_payment, name='verify_payment'),
-    
-    # Maps /earning/ to your dashboard view
-    path('earning/', views.dashboard, name='dashboard'), 
+    # Hand over all incoming traffic (including the homepage) to the accounts app
+    path('', include('accounts.urls')), 
 ]

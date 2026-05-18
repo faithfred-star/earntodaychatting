@@ -1,10 +1,9 @@
 from django.urls import path
-from . import views
+from . import views  # This is completely safe here!
 
 urlpatterns = [
+    # This empty string rule handles your main home landing page safely!
     path('', views.home, name='home'),
     path('verify-payment/', views.verify_payment, name='verify_payment'),
-    
-    # --- ADD THIS LINE TO MATCH THE REDIRECTS ---
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('earning/', views.dashboard, name='dashboard'), 
 ]
