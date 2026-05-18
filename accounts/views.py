@@ -15,20 +15,14 @@ def home(request):
 
 
 @login_required
-def verify_payment(request):
+def dashboard(request):
     profile = request.user.userprofile
     
-    if profile.is_verified:
-        return redirect('dashboard')  # Make sure you have a path named 'dashboard' in urls.py if using this
-
-    if request.method == 'POST':
-        phone_number = request.POST.get('phone_number')
+    # If they haven't verified their phone/payment yet, kick them back to the verification page
+    if not profile.is_verified:
+        return redirect('verify_payment')
         
-        profile.phone_number = phone_number
-        profile.save()
-        
-        return render(request, 'accounts/verification_pending.html', {
-            'phone_number': phone_number
-        })
-
-    return render(request, 'accounts/verify_payment.html')
+    # If they are verified, show them the earning dashboard
+    return render(request, 'accounts/dashboard.html', {
+        'profile': profile
+    })
