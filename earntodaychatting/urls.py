@@ -1,10 +1,14 @@
 from django.urls import path
-from . import views
+# --- FIXED: Added the missing views import ---
+from . import views 
 
 urlpatterns = [
+    # Main landing page
     path('', views.home, name='home'),
-    path('verify_payment/', views.verify_payment, name='verify_payment'),
     
-    # --- This maps /earning/ to your dashboard/earning view ---
+    # Matches your existing setup exactly (using a hyphen)
+    path('verify-payment/', views.verify_payment, name='verify_payment'),
+    
+    # Maps /earning/ to your dashboard view
     path('earning/', views.dashboard, name='dashboard'), 
 ]
