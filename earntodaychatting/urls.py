@@ -1,7 +1,6 @@
 from django.urls import path
 # --- FIXED: Added the missing views import ---
-from . import views 
-
+from django.urls import path, include
 urlpatterns = [
     # Main landing page
     path('', views.home, name='home'),
