@@ -1,7 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),  # Seamlessly connects your registration sub-routes
+    # --- FIX: Ensure the empty path maps to your homepage function ---
+    path('', views.home, name='home'), 
+    
+    # Your other routes
+    path('verify-payment/', views.verify_payment, name='verify_payment'),
 ]
