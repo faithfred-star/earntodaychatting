@@ -1,9 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    # --- FIXED: Changed 'join' to 'urls' ---
-    path('admin/', admin.site.urls), 
+    path('', views.home, name='home'),
+    path('verify_payment/', views.verify_payment, name='verify_payment'),
     
-    path('', include('accounts.urls')), 
+    # --- This maps /earning/ to your dashboard/earning view ---
+    path('earning/', views.dashboard, name='dashboard'), 
 ]
