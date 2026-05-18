@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     referral_code = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)  # Tracks if they paid the 119 KSh
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - Verified: {self.is_verified}"

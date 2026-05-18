@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif;">
+    <h2>Account Verification Required</h2>
+    <p>To activate your account and start earning, you need to pay a one-time verification fee of <strong>119 KSh</strong>.</p>
+    
+    <div style="background-color: #fcf8e3; border: 1px solid #fbeed5; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+        <p style="margin: 0; color: #c09853;"><strong>Instructions:</strong></p>
+        <ul style="margin: 5px 0 0 20px; color: #c09853;">
+            <li>Send <strong>119 KSh</strong> to phone number: <strong>0731954778</strong></li>
+            <li>Once sent, enter the phone number you paid with below.</li>
+        </ul>
+    </div>
+
+    <form method="POST">
+        {% csrf_style %}
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="phone_number" style="display: block; margin-bottom: 5px;">Your Payment Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" placeholder="e.g. 07XXXXXXXX" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+        </div>
+        
+        <button type="submit" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
+            Submit for Verification
+        </button>
+    </form>
+</div>
+{% endblock %}

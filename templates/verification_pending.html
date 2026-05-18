@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: sans-serif; text-align: center;">
+    <h2 style="color: #0056b3;">Payment Received!</h2>
+    <p>Thank you. We are verifying the 119 KSh payment from phone number: <strong>{{ phone_number }}</strong>.</p>
+    <p>Your account will be activated automatically within 10 to 30 minutes once the transaction is confirmed.</p>
+    <a href="/" style="display: inline-block; margin-top: 15px; color: #007bff; text-decoration: none;">Go to Homepage</a>
+</div>
+{% endblock %}
