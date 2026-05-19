@@ -37,8 +37,7 @@ ROOT_URLCONF = 'earntodaychatting.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # --- MAKE SURE THIS LINE IS EXACTLY LIKE THIS ---
-        'DIRS': [BASE_DIR / 'templates'], 
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -47,9 +46,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-        },
-    },
-]
         },
     },
 ]
