@@ -11,8 +11,15 @@ def home(request):
     return render(request, 'accounts/home.html') 
 
 def register(request):
-    # This renders your registration form template
-    return render(request, 'accounts/register.html')
+    # Grab the referral code if someone used a referral link, or leave it blank
+    ref_code = request.GET.get('ref', '') 
+    
+    context = {
+        'ref_code': ref_code
+    }
+    
+    # Send the context dictionary containing 'ref_code' to the template
+    return render(request, 'accounts/register.html', context)
 
 # 2. Earning Dashboard View
 @login_required
