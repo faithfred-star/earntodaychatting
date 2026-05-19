@@ -14,8 +14,7 @@
     </div>
 
     <form method="POST">
-        {% csrf_style %}
-        {% csrf_token %}
+        {% csrf_token %} <!-- Cleaned up and kept only the valid token tag -->
         <div style="margin-bottom: 15px;">
             <label for="phone_number" style="display: block; margin-bottom: 5px;">Your Payment Phone Number:</label>
             <input type="text" id="phone_number" name="phone_number" placeholder="e.g. 07XXXXXXXX" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
