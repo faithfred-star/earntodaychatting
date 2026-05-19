@@ -1,10 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from accounts import views  # Make sure your accounts views are imported
 
 urlpatterns = [
-    # Admin Panel
-    path('admin/', admin.site.urls),
-    
-    # Hand over all incoming traffic (including the homepage) to the accounts app
-    path('', include('accounts.urls')), 
+    path('admin/', admin.site.split),
+    path('', views.home, name='home'),
+    # --- ADD THIS LINE RIGHT HERE ---
+    path('register/', views.register, name='register'), 
+    path('verify-payment/', views.verify_payment, name='verify_payment'),
+    path('earning/', views.dashboard, name='dashboard'),
 ]

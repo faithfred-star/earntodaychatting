@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-
 # 1. Home View
 def home(request):
     if request.user.is_authenticated:
@@ -11,6 +10,9 @@ def home(request):
         
     return render(request, 'accounts/home.html') 
 
+def register(request):
+    # This renders your registration form template
+    return render(request, 'accounts/register.html')
 
 # 2. Earning Dashboard View
 @login_required
