@@ -14,7 +14,7 @@ def home(request):
         
     return render(request, 'accounts/home.html') 
 
-# 2. Updated Registration View (Handles form submissions and saves Phone Numbers)
+# 2. Registration View (Handles form submissions and saves Phone Numbers)
 def register(request):
     # Grab the referral code if someone used a referral link, or leave it blank
     ref_code = request.GET.get('ref', '') 
@@ -46,8 +46,8 @@ def register(request):
         UserProfile.objects.create(
             user=user,
             phone_number=phone_number,
-            referred_by=ref,
-            is_verified=False  # User must pay 119 KSh to turn this True
+            referral_code=ref,  # <-- FIXED: Matched to referral_code in models.py
+            is_verified=False   # User must pay 119 KSh to turn this True
         )
 
         # Log the newly registered user in automatically behind the scenes
@@ -91,7 +91,6 @@ def verify_payment(request):
         profile.save()
         
         # 3. Add a success banner message telling them you are reviewing it
-        from django.contrib import messages
         messages.success(request, f"Payment submission received for {submitted_phone}. Your account will be activated once confirmed.")
         
         # Keep them on the page showing the confirmation message, or redirect as needed
