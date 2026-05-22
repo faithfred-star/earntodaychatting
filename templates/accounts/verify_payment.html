@@ -5,23 +5,30 @@
     <h2>Account Verification Required</h2>
     <p>To activate your account and start earning, you need to pay a one-time verification fee of <strong>119 KSh</strong>.</p>
     
-    <div style="background-color: #fcf8e3; border: 1px solid #fbeed5; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
-        <p style="margin: 0; color: #c09853;"><strong>Instructions:</strong></p>
-        <ul style="margin: 5px 0 0 20px; color: #c09853;">
-            <li>Send <strong>119 KSh</strong> to phone number: <strong>0731954778</strong></li>
-            <li>Once sent, enter the phone number you paid with below.</li>
-        </ul>
+    <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+        <p style="margin: 0; color: #166534;"><strong>Instant Activation:</strong></p>
+        <p style="margin: 5px 0 0 0; color: #14532d; font-size: 0.9rem;">
+            Enter your M-Pesa number. An automated STK Push payment menu prompt will securely launch on your phone asking for your secret PIN.
+        </p>
     </div>
 
-    <form method="POST">
-        {% csrf_token %} <!-- Cleaned up and kept only the valid token tag -->
+    {% if messages %}
         <div style="margin-bottom: 15px;">
-            <label for="phone_number" style="display: block; margin-bottom: 5px;">Your Payment Phone Number:</label>
-            <input type="text" id="phone_number" name="phone_number" placeholder="e.g. 07XXXXXXXX" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            {% for message in messages %}
+                <p style="padding: 10px; background-color: #fee2e2; color: #991b1b; border-radius: 4px; font-size: 0.85rem;">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="phone_number" style="display: block; margin-bottom: 5px; font-weight: bold;">Your M-Pesa Number:</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ profile.phone_number|default:'' }}" placeholder="e.g. 07XXXXXXXX" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
         </div>
         
-        <button type="submit" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;">
-            Submit for Verification
+        <button type="submit" style="width: 100%; padding: 12px; background-color: #16a34a; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold;">
+            Send Payment STK Push
         </button>
     </form>
 </div>
