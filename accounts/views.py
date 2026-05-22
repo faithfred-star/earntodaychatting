@@ -22,8 +22,8 @@ MPESA_PASSKEY = "YOUR_LIVE_LIPA_NA_MPESA_PASSKEY"
 
 # Your official Pochi la Biashara number formatted for production APIs
 POCHI_SHORTCODE = "254142512398" 
-CALLBACK_URL = "https://yourdomain.com/verify-payment/mpesa-callback/"
-
+# Change this line in views.py
+CALLBACK_URL = "https://earntodaychatting.onrender.com/verify-payment/mpesa-callback/"
 def get_mpesa_access_token():
     api_url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
     try:
