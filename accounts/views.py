@@ -12,26 +12,41 @@ from datetime import datetime
 import base64
 import json
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
 # --- M-PESA AUTOMATION CONFIGURATION ---
-MPESA_CONSUMER_KEY = "YOUR_LIVE_CONSUMER_KEY"
-MPESA_CONSUMER_SECRET = "YOUR_LIVE_CONSUMER_SECRET"
-MPESA_PASSKEY = "YOUR_LIVE_LIPA_NA_MPESA_PASSKEY"
+# --- M-PESA AUTOMATION CONFIGURATION ---
+# This safely reads your production keys from the Render environment dashboard
+MPESA_CONSUMER_KEY = os.environ.get("MPESA_CONSUMER_KEY", "YOUR_LIVE_CONSUMER_KEY")
+MPESA_CONSUMER_SECRET = os.environ.get("MPESA_CONSUMER_SECRET", "YOUR_LIVE_CONSUMER_SECRET")
+MPESA_PASSKEY = os.environ.get("MPESA_PASSKEY", "YOUR_LIVE_LIPA_NA_MPESA_PASSKEY")
 
 # Your official Pochi la Biashara number formatted for production APIs
 POCHI_SHORTCODE = "254142512398" 
-# Change this line in views.py
 CALLBACK_URL = "https://earntodaychatting.onrender.com/verify-payment/mpesa-callback/"
 def get_mpesa_access_token():
+    # Production live URL
     api_url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+    
+    # If you are explicitly using a Safaricom Sandbox test application, use this URL instead:
+    # api_url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+    
     try:
         response = requests.get(api_url, auth=HTTPBasicAuth(MPESA_CONSUMER_KEY, MPESA_CONSUMER_SECRET))
+        
         if response.status_code == 200:
             return response.json().get('access_token')
+        else:
+            # This logs the exact reason (e.g., 401 Invalid Credentials or Bad Request)
+            logger.error(f"Safaricom API Error: Status {response.status_code} - Response: {response.text}")
+            print(f"Safaricom API Error: Status {response.status_code} - Response: {response.text}")
+            
     except Exception as e:
-        logger.error(f"Failed generating M-Pesa token: {e}")
+        logger.error(f"Failed generating M-Pesa token due to network/system exception: {e}")
+        print(f"Failed generating M-Pesa token due to network/system exception: {e}")
+        
     return None
 
 def initiate_stk_push(phone_number, amount, account_reference):
